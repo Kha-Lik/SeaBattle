@@ -5,6 +5,6 @@ namespace SeaBattle
     public class Ship
     {
         public List<Cell> Cells { get; set; }
-        public bool IsDamaged { get; set; }
+        public ShipState State { get; set; }
     }
 }
