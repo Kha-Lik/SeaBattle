@@ -7,10 +7,10 @@ namespace SeaBattle
         public Point Coordinates { get; set; }
         public CellState State { get; set; }
 
-        public Cell(int coordX, int coordY)
+        public Cell(Point point)
         {
-            Point point = new(coordX, coordY);
             Coordinates = point;
+            State = CellState.Empty;
         }
     }
 }
