@@ -1,10 +1,13 @@
-﻿namespace SeaBattle
+﻿using System;
+
+namespace SeaBattle
 {
+    [Flags]
     public enum CellState
     {
-        Empty = 0,
-        Ship = 1,
-        WasFired = 2,
-        CanContainShip = 4
+        Empty = 1,
+        Ship = 2,
+        WasFired = 4,
+        NearShip = 8
     }
 }
