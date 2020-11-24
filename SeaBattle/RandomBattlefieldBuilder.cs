@@ -41,6 +41,11 @@ namespace SeaBattle
             }
         }
 
+        public override IBattlefield GetResult()
+        {
+            return _battlefield;
+        }
+
         private void PlaceShipRandomly(int shipSize)
         {
             var random = RandomHelper.GetHelper();
@@ -68,6 +73,7 @@ namespace SeaBattle
             
             foreach (var cell in range) 
                 cell.State = CellState.Ship;
+            _battlefield.Ships.Add(new(range));
             
             EncircleShip(range);
         }

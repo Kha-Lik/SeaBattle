@@ -18,6 +18,8 @@ namespace SeaBattle
 
         public int Size { get; set; }
 
+        public List<Ship> Ships { get; set; }
+
         public Cell this[Point point]
         {
             get => _field[point.X, point.Y];
