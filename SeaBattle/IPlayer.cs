@@ -9,5 +9,6 @@ namespace SeaBattle
         public bool IsMyTurn { get; set; }
 
         public bool AutoShot();
+        bool ManualShot(Point target, IBattlefield battlefield);
     }
 }
