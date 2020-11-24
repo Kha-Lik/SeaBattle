@@ -5,13 +5,13 @@ namespace SeaBattle
 {
     public class SmartShot : AutoShotMethod
     {
-        public SmartShot(IPlayer player) : base(player)
+        public SmartShot(IPlayer player, IBattlefield battlefield) : base(player, battlefield)
         {
         }
 
         public override bool Shoot()
         {
-            var targetShip = Player.Battlefield.Ships.FirstOrDefault(s =>
+            var targetShip = Battlefield.Ships.FirstOrDefault(s =>
                 s.Cells.Count(c => c.State.HasFlag(CellState.WasFired)) >= 2 && s.State == ShipState.Damaged);
             var target = GetRandomCell(targetShip);
 
@@ -21,10 +21,10 @@ namespace SeaBattle
             if (!targetShip.Cells.All(c => c.State.HasFlag(CellState.WasFired))) return true;
             
             targetShip.State = ShipState.Destroyed;
-            if (Player.Battlefield.Ships.Exists(s => s.State == ShipState.Damaged)) 
-                ChangeShotMethod(new RandomNearShot(Player));
+            if (Battlefield.Ships.Exists(s => s.State == ShipState.Damaged)) 
+                ChangeShotMethod(new RandomNearShot(Player, Battlefield));
             
-            ChangeShotMethod(new RandomShot(Player));
+            ChangeShotMethod(new RandomShot(Player, Battlefield));
             return true;
         }
 
@@ -39,7 +39,7 @@ namespace SeaBattle
             
             foreach (var cell in ship.Cells)
             {
-                cells.AddRange(Player.Battlefield.GetNeighbours(cell).Where(c => !c.State.HasFlag(CellState.WasFired)));
+                cells.AddRange(Battlefield.GetNeighbours(cell).Where(c => !c.State.HasFlag(CellState.WasFired)));
             }
 
             cells = cells.Distinct().ToList();

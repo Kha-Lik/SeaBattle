@@ -4,13 +4,13 @@ namespace SeaBattle
 {
     public class RandomNearShot : AutoShotMethod
     {
-        public RandomNearShot(IPlayer player) : base(player)
+        public RandomNearShot(IPlayer player, IBattlefield battlefield) : base(player, battlefield)
         {
         }
 
         public override bool Shoot()
         {
-            var targetShip = Player.Battlefield.Ships.FirstOrDefault(s => s.State is ShipState.Damaged);
+            var targetShip = Battlefield.Ships.FirstOrDefault(s => s.State is ShipState.Damaged);
             //ReSharper disable once PossibleNullReferenceException
             var damagedCell = targetShip.Cells.FirstOrDefault(c => c.State.HasFlag(CellState.WasFired));
 
@@ -22,19 +22,19 @@ namespace SeaBattle
             if (targetShip.Cells.All(c => c.State.HasFlag(CellState.WasFired)))
             {
                 targetShip.State = ShipState.Destroyed;
-                if (Player.Battlefield.Ships.Exists(s => s.State == ShipState.Damaged)) 
+                if (Battlefield.Ships.Exists(s => s.State == ShipState.Damaged)) 
                     return true;
-                ChangeShotMethod(new RandomShot(Player));
+                ChangeShotMethod(new RandomShot(Player, Battlefield));
                 return true;
 
             }
-            ChangeShotMethod(new SmartShot(Player));
+            ChangeShotMethod(new SmartShot(Player, Battlefield));
             return true;
         }
 
         private Cell GetRandomCell(Cell damaged)
         {
-            var cells = Player.Battlefield.GetNeighbours(damaged).Where(c => !c.State.HasFlag(CellState.WasFired)).ToList();
+            var cells = Battlefield.GetNeighbours(damaged).Where(c => !c.State.HasFlag(CellState.WasFired)).ToList();
             return RandomHelper.GetHelper().GetRandomCell(cells);
         }
     }

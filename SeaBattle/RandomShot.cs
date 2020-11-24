@@ -4,9 +4,9 @@ namespace SeaBattle
 {
     public class RandomShot : AutoShotMethod
     {
-        public RandomShot(IPlayer player) : base(player)
+        public RandomShot(IPlayer player, IBattlefield battlefield) : base(player, battlefield)
         {
-        }
+        }   
 
         public override bool Shoot()
         {
@@ -19,7 +19,7 @@ namespace SeaBattle
             
             if (!target.State.HasFlag(CellState.Ship)) return false;
 
-            var ship = Player.Battlefield.Ships.Find(s => s.Cells.Contains(target));
+            var ship = Battlefield.Ships.Find(s => s.Cells.Contains(target));
             // ReSharper disable once PossibleNullReferenceException
             if (ship.Cells.Count == 1)
             {
@@ -28,7 +28,7 @@ namespace SeaBattle
             }
             
             ship.State = ShipState.Damaged;
-            ChangeShotMethod(new RandomNearShot(Player));
+            ChangeShotMethod(new RandomNearShot(Player, Battlefield));
             return true;
 
         }
@@ -41,7 +41,7 @@ namespace SeaBattle
         private Cell GetRandomCell()
         {
             var random = RandomHelper.GetHelper();
-            return Player.Battlefield[random.GetRandomPoint(Player.Battlefield.Size)];
+            return Battlefield[random.GetRandomPoint(Player.Battlefield.Size)];
         }
     }
 }
