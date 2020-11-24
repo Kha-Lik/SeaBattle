@@ -14,6 +14,8 @@ namespace SeaBattle
 
         public abstract void PlaceShips();
 
+        public abstract IBattlefield GetResult();
+
         protected Dictionary<int, int> GetShipsFromSettings(GameSettings settings)
         {
             Dictionary<int, int> shipsSettings = new();
