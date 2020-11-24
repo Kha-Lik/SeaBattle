@@ -10,9 +10,9 @@ namespace SeaBattle
         public AutoShotMethod AutoShotMethod { get; set; }
         public bool IsMyTurn { get; set; }
         
-        public bool AutoShot()
+        public bool AutoShot(IBattlefield battlefield)
         {
-            return AutoShotMethod.Shoot();
+            return AutoShotMethod.Shoot(battlefield);
         }
 
         public bool ManualShot(Point target, IBattlefield battlefield)
