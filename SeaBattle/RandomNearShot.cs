@@ -4,17 +4,17 @@ namespace SeaBattle
 {
     public class RandomNearShot : AutoShotMethod
     {
-        public RandomNearShot(IPlayer player, IBattlefield battlefield) : base(player, battlefield)
+        public RandomNearShot(IPlayer player) : base(player)
         {
         }
 
-        public override bool Shoot()
+        public override bool Shoot(IBattlefield battlefield)
         {
-            var targetShip = Battlefield.Ships.FirstOrDefault(s => s.State is ShipState.Damaged);
+            var targetShip = battlefield.Ships.FirstOrDefault(s => s.State is ShipState.Damaged);
             //ReSharper disable once PossibleNullReferenceException
             var damagedCell = targetShip.Cells.FirstOrDefault(c => c.State.HasFlag(CellState.WasFired));
 
-            var target = GetRandomCell(damagedCell);
+            var target = GetRandomCell(damagedCell, battlefield);
             target.State = target.State | CellState.WasFired;
             
             if (!target.State.HasFlag(CellState.Ship)) return false;
@@ -22,19 +22,19 @@ namespace SeaBattle
             if (targetShip.Cells.All(c => c.State.HasFlag(CellState.WasFired)))
             {
                 targetShip.State = ShipState.Destroyed;
-                if (Battlefield.Ships.Exists(s => s.State == ShipState.Damaged)) 
+                if (battlefield.Ships.Exists(s => s.State == ShipState.Damaged)) 
                     return true;
-                ChangeShotMethod(new RandomShot(Player, Battlefield));
+                ChangeShotMethod(new RandomShot(Player));
                 return true;
 
             }
-            ChangeShotMethod(new SmartShot(Player, Battlefield));
+            ChangeShotMethod(new SmartShot(Player));
             return true;
         }
 
-        private Cell GetRandomCell(Cell damaged)
+        private Cell GetRandomCell(Cell damaged, IBattlefield battlefield)
         {
-            var cells = Battlefield.GetNeighbours(damaged).Where(c => !c.State.HasFlag(CellState.WasFired)).ToList();
+            var cells = battlefield.GetNeighbours(damaged).Where(c => !c.State.HasFlag(CellState.WasFired)).ToList();
             return RandomHelper.GetHelper().GetRandomCell(cells);
         }
     }

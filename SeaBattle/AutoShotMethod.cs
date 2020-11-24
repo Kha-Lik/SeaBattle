@@ -3,15 +3,13 @@
     public abstract class AutoShotMethod
     {
         protected IPlayer Player;
-        protected IBattlefield Battlefield;
 
-        protected AutoShotMethod(IPlayer player, IBattlefield battlefield)
+        protected AutoShotMethod(IPlayer player)
         {
             Player = player;
-            Battlefield = battlefield;
         }
 
-        public abstract bool Shoot();
+        public abstract bool Shoot(IBattlefield battlefield);
 
         protected void ChangeShotMethod(AutoShotMethod method)
         {

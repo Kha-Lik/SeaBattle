@@ -5,15 +5,15 @@ namespace SeaBattle
 {
     public class SmartShot : AutoShotMethod
     {
-        public SmartShot(IPlayer player, IBattlefield battlefield) : base(player, battlefield)
+        public SmartShot(IPlayer player) : base(player)
         {
         }
 
-        public override bool Shoot()
+        public override bool Shoot(IBattlefield battlefield)
         {
-            var targetShip = Battlefield.Ships.FirstOrDefault(s =>
+            var targetShip = battlefield.Ships.FirstOrDefault(s =>
                 s.Cells.Count(c => c.State.HasFlag(CellState.WasFired)) >= 2 && s.State == ShipState.Damaged);
-            var target = GetRandomCell(targetShip);
+            var target = GetRandomCell(targetShip, battlefield);
 
             target.State = target.State | CellState.WasFired;
             if (!target.State.HasFlag(CellState.Ship)) return false;
@@ -21,25 +21,25 @@ namespace SeaBattle
             if (!targetShip.Cells.All(c => c.State.HasFlag(CellState.WasFired))) return true;
             
             targetShip.State = ShipState.Destroyed;
-            if (Battlefield.Ships.Exists(s => s.State == ShipState.Damaged)) 
-                ChangeShotMethod(new RandomNearShot(Player, Battlefield));
+            if (battlefield.Ships.Exists(s => s.State == ShipState.Damaged)) 
+                ChangeShotMethod(new RandomNearShot(Player));
             
-            ChangeShotMethod(new RandomShot(Player, Battlefield));
+            ChangeShotMethod(new RandomShot(Player));
             return true;
         }
 
-        private Cell GetRandomCell(Ship ship)
+        private Cell GetRandomCell(Ship ship, IBattlefield battlefield)
         {
-            return RandomHelper.GetHelper().GetRandomCell(GetSuitableCells(ship));
+            return RandomHelper.GetHelper().GetRandomCell(GetSuitableCells(ship, battlefield));
         }
 
-        private IList<Cell> GetSuitableCells(Ship ship)
+        private IList<Cell> GetSuitableCells(Ship ship, IBattlefield battlefield)
         {
             List<Cell> cells = new();
             
             foreach (var cell in ship.Cells)
             {
-                cells.AddRange(Battlefield.GetNeighbours(cell).Where(c => !c.State.HasFlag(CellState.WasFired)));
+                cells.AddRange(battlefield.GetNeighbours(cell).Where(c => !c.State.HasFlag(CellState.WasFired)));
             }
 
             cells = cells.Distinct().ToList();
