@@ -12,7 +12,7 @@ namespace SeaBattle
         
         public RandomBattlefieldBuilder(GameSettings settings) : base(settings)
         {
-            _ships = GetShipsFromSettings(settings);
+            _ships = GetShipsFromSettings();
         }
 
         public override void BuildBattlefield()

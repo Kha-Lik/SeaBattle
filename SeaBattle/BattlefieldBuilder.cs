@@ -5,7 +5,8 @@ namespace SeaBattle
     public abstract class BattlefieldBuilder
     {
         protected readonly GameSettings Settings;
-        public BattlefieldBuilder(GameSettings settings)
+
+        protected BattlefieldBuilder(GameSettings settings)
         {
             Settings = settings;
         }
@@ -16,10 +17,10 @@ namespace SeaBattle
 
         public abstract IBattlefield GetResult();
 
-        protected Dictionary<int, int> GetShipsFromSettings(GameSettings settings)
+        protected Dictionary<int, int> GetShipsFromSettings( )
         {
             Dictionary<int, int> shipsSettings = new();
-            foreach (var (size, count) in settings.Ships)
+            foreach (var (size, count) in Settings.Ships)
             {
                 if (int.TryParse(size, out var result))
                     shipsSettings.Add(result, count);

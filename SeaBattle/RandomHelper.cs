@@ -14,9 +14,7 @@ namespace SeaBattle
 
         public static RandomHelper GetHelper()
         {
-            if (_helper is null)
-                _helper = new RandomHelper();
-            return _helper;
+            return _helper ??= new();
         }
 
         public Point GetRandomPoint(int range)

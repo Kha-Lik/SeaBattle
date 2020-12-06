@@ -4,8 +4,8 @@ namespace SeaBattle
 {
     public class Game : IGame
     {
-        private IPlayer _playerOne;
-        private IPlayer _playerTwo;
+        private readonly IPlayer _playerOne;
+        private readonly IPlayer _playerTwo;
 
         public Game(IPlayerBuilder playerBuilder)
         {
