@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace SeaBattle.UnitTests
@@ -32,9 +33,7 @@ namespace SeaBattle.UnitTests
         {
             var point = new Point {X = x, Y = y};
 
-            var result = _battlefield.IsPointInField(point);
-            
-            Assert.That(result, Is.EqualTo(expectedResult));
+            _battlefield.IsPointInField(point).Should().Be(expectedResult);
         }
 
         [Test]
@@ -42,9 +41,7 @@ namespace SeaBattle.UnitTests
         {
             var cell = new Cell(new (){X = 0, Y = 0});
 
-            var result = _battlefield.GetNeighbours(cell);
-            
-            Assert.That(result.Count, Is.EqualTo(3));
+            _battlefield.GetNeighbours(cell).Count.Should().Be(3);
         }
         
         [Test]
@@ -52,9 +49,7 @@ namespace SeaBattle.UnitTests
         {
             var cell = new Cell(new (){X = 1, Y = 1});
 
-            var result = _battlefield.GetNeighbours(cell);
-            
-            Assert.That(result.Count, Is.EqualTo(8));
+            _battlefield.GetNeighbours(cell).Count.Should().Be(8);
         }
     }
 }
