@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -7,16 +8,16 @@ namespace SeaBattle
 {
     public class RandomBattlefieldBuilder : BattlefieldBuilder
     {
-        private readonly Dictionary<int, int> _ships;
         private IBattlefield _battlefield;
-        
+
         public RandomBattlefieldBuilder(GameSettings settings) : base(settings)
         {
-            _ships = GetShipsFromSettings();
         }
 
         public override void BuildBattlefield()
         {
+            if (Settings.FieldSize <= 0) 
+                throw new BattlefieldBuilderException($"Field size must be greater than zero, but is {Settings.FieldSize}");
             _battlefield = new Battlefield(Settings.FieldSize);
 
             for (var i = 0; i < Settings.FieldSize; i++)
@@ -28,11 +29,20 @@ namespace SeaBattle
                     _battlefield[point] = new Cell(point);
                 }
             }
+
+            _battlefield.Ships = new();
         }
 
         public override void PlaceShips()
         {
-            foreach (var (size, count) in _ships)
+            if (_battlefield is null)
+                throw new BattlefieldBuilderException(nameof(_battlefield) ,"Battlefield must be created before placing ships");
+
+            if (IsShipsDensityTooHigh()) throw new BattlefieldBuilderException("Given settings will cause too high ships density");
+            
+            var ships = GetShipsFromSettings();
+            
+            foreach (var (size, count) in ships)
             {
                 for (int i = 0; i < count; i++)
                 {
@@ -55,7 +65,7 @@ namespace SeaBattle
             var isVertical = random.GetRandomBool();
             
             List<Cell> range = new();
-
+            
             do {
                 var pointRange = GetPointRange(randomCell.Coordinates, shipSize, isVertical);
                 //if some points are outside of the field,
@@ -77,7 +87,17 @@ namespace SeaBattle
             
             EncircleShip(range);
         }
+        private bool IsShipsDensityTooHigh()
+        {
+            const double highestAvailibleDensityCoef = 1.21;
+            var shipsAmount = GetShipsFromSettings();
 
+            var decksCount = shipsAmount.Sum(x => x.Key * x.Value);
+            var maxNeighbourCellsCount = shipsAmount.Sum(x => (x.Key * 2 + 6) * x.Value);
+            var densityCoef = (decksCount + maxNeighbourCellsCount) / Math.Pow(Settings.FieldSize, 2);
+
+            return densityCoef > highestAvailibleDensityCoef;
+        }
         private IList<Cell> GetEmptyCells()
         {
             return _battlefield.Cast<Cell>().Where(c => 
@@ -86,7 +106,7 @@ namespace SeaBattle
 
         private bool IsRangeOfCellSuitable(ICollection<Cell> range, IEnumerable<Cell> emptyCells)
         {
-            return emptyCells.Intersect(range).Equals(range);
+            return range.All(emptyCells.Contains);
         }
 
         private ICollection<Point> GetPointRange(Point startPoint, int size, bool isVertical)

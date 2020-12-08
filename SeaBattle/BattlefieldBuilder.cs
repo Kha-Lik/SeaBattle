@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SeaBattle
 {
@@ -6,10 +7,7 @@ namespace SeaBattle
     {
         protected readonly GameSettings Settings;
 
-        protected BattlefieldBuilder(GameSettings settings)
-        {
-            Settings = settings;
-        }
+        protected BattlefieldBuilder(GameSettings settings) => Settings = settings;
 
         public abstract void BuildBattlefield();
 
@@ -24,6 +22,8 @@ namespace SeaBattle
             {
                 if (int.TryParse(size, out var result))
                     shipsSettings.Add(result, count);
+                else
+                    throw new BattlefieldBuilderException($"Incorrect ship size string: {size}");
             }
 
             return shipsSettings;
