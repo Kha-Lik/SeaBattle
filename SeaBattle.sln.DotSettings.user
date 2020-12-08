@@ -1,0 +1,13 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\MykolaV\AppData\Local\JetBrains\Rider2020.3\resharper-host\temp\Rider\vAny\CoverageData\_SeaBattle.1160876576\Snapshot\snapshot.utdcvr</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=32f2053f_002D39ee_002D4592_002D912f_002D750ab05b6fa2/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PlaceShips_WhenCalled_PutsShipsOnField" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::0B4F311B-AA73-422F-8621-7D520AA3901B::net5.0::SeaBattle.UnitTests.RandomBattlefieldBuilderTests.PlaceShips_WhenCalled_PutsShipsOnField&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ac339c0f_002D8092_002D49c5_002D99da_002D66e71d09c4a5/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="IsPointInField_WhenCall_TrueIfPointInFieldOtherwiseFalse" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Solution /&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f7b8778f_002D41da_002D42eb_002D9db2_002D715d9e58a47b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Solution /&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

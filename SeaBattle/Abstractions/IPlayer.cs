@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace SeaBattle
+namespace SeaBattle.Abstractions
 {
     public interface IPlayer
     {

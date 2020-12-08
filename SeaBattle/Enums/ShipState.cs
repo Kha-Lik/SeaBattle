@@ -1,4 +1,4 @@
-﻿namespace SeaBattle
+﻿namespace SeaBattle.Enums
 {
     public enum ShipState
     {

@@ -1,4 +1,4 @@
-﻿namespace SeaBattle
+﻿namespace SeaBattle.Abstractions
 {
     public interface IPlayerBuilder
     {

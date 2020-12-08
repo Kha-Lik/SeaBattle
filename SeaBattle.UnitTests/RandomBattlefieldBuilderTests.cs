@@ -1,6 +1,9 @@
 ﻿using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
+using SeaBattle.Abstractions;
+using SeaBattle.Enums;
+using SeaBattle.Implementations;
 
 namespace SeaBattle.UnitTests
 {

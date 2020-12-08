@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
+using SeaBattle.Abstractions;
 
-namespace SeaBattle
+namespace SeaBattle.Implementations
 {
     public class Game : IGame
     {
@@ -13,9 +14,15 @@ namespace SeaBattle
             _playerTwo = playerBuilder.ConstructPlayer();
         }
 
-        public IBattlefield GetPlayerOneField() => _playerOne.Battlefield;
+        public IBattlefield GetPlayerOneField()
+        {
+            return _playerOne.Battlefield;
+        }
 
-        public IBattlefield GetPlayerTwoField() => _playerTwo.Battlefield;
+        public IBattlefield GetPlayerTwoField()
+        {
+            return _playerTwo.Battlefield;
+        }
 
         public bool AutoShoot()
         {
@@ -26,7 +33,7 @@ namespace SeaBattle
 
                 return _playerOne.AutoShot(_playerTwo.Battlefield);
             }
-            
+
             _playerOne.IsMyTurn = true;
             _playerTwo.IsMyTurn = false;
 
@@ -42,7 +49,7 @@ namespace SeaBattle
 
                 return _playerOne.ManualShot(target, _playerTwo.Battlefield);
             }
-            
+
             _playerOne.IsMyTurn = true;
             _playerTwo.IsMyTurn = false;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SeaBattle
+namespace SeaBattle.Enums
 {
     [Flags]
     public enum CellState

@@ -1,4 +1,4 @@
-﻿namespace SeaBattle
+﻿namespace SeaBattle.Abstractions
 {
     public abstract class AutoShotMethod
     {

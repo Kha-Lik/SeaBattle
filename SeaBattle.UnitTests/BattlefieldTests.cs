@@ -2,6 +2,7 @@
 using System.Drawing;
 using FluentAssertions;
 using NUnit.Framework;
+using SeaBattle.Implementations;
 
 namespace SeaBattle.UnitTests
 {

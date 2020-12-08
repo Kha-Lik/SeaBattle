@@ -1,20 +1,23 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using SeaBattle.Implementations;
 
 namespace SeaBattle
 {
     public class RandomHelper
     {
         private static RandomHelper _helper;
-        private Random _random;
+        private readonly Random _random;
 
-        private RandomHelper() => _random = new();
+        private RandomHelper()
+        {
+            _random = new Random();
+        }
 
         public static RandomHelper GetHelper()
         {
-            return _helper ??= new();
+            return _helper ??= new RandomHelper();
         }
 
         public Point GetRandomPoint(int range)
@@ -24,7 +27,7 @@ namespace SeaBattle
                 X = _random.Next(range),
                 Y = _random.Next(range)
             };
-            
+
             return point;
         }
 
@@ -34,6 +37,9 @@ namespace SeaBattle
             return cells[index];
         }
 
-        public bool GetRandomBool() => _random.Next(100) > 49;
+        public bool GetRandomBool()
+        {
+            return _random.Next(100) > 49;
+        }
     }
 }

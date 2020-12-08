@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using SeaBattle.Implementations;
 
-namespace SeaBattle
+namespace SeaBattle.Abstractions
 {
     public abstract class BattlefieldBuilder
     {
         protected readonly GameSettings Settings;
 
-        protected BattlefieldBuilder(GameSettings settings) => Settings = settings;
+        protected BattlefieldBuilder(GameSettings settings)
+        {
+            Settings = settings;
+        }
 
         public abstract void BuildBattlefield();
 
@@ -15,16 +18,14 @@ namespace SeaBattle
 
         public abstract IBattlefield GetResult();
 
-        protected Dictionary<int, int> GetShipsFromSettings( )
+        protected Dictionary<int, int> GetShipsFromSettings()
         {
             Dictionary<int, int> shipsSettings = new();
             foreach (var (size, count) in Settings.Ships)
-            {
                 if (int.TryParse(size, out var result))
                     shipsSettings.Add(result, count);
                 else
                     throw new BattlefieldBuilderException($"Incorrect ship size string: {size}");
-            }
 
             return shipsSettings;
         }

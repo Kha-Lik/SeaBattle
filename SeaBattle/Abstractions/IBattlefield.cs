@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using SeaBattle.Implementations;
 
-namespace SeaBattle
+namespace SeaBattle.Abstractions
 {
     public interface IBattlefield : IEnumerable
     {

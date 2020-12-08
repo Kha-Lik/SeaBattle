@@ -1,6 +1,8 @@
 ﻿using System.Linq;
+using SeaBattle.Abstractions;
+using SeaBattle.Enums;
 
-namespace SeaBattle
+namespace SeaBattle.Implementations
 {
     public class RandomNearShot : AutoShotMethod
     {
@@ -16,18 +18,18 @@ namespace SeaBattle
 
             var target = GetRandomCell(damagedCell, battlefield);
             target.State = target.State | CellState.WasFired;
-            
+
             if (!target.State.HasFlag(CellState.Ship)) return false;
 
             if (targetShip.Cells.All(c => c.State.HasFlag(CellState.WasFired)))
             {
                 targetShip.State = ShipState.Destroyed;
-                if (battlefield.Ships.Exists(s => s.State == ShipState.Damaged)) 
+                if (battlefield.Ships.Exists(s => s.State == ShipState.Damaged))
                     return true;
                 ChangeShotMethod(new RandomShot(Player));
                 return true;
-
             }
+
             ChangeShotMethod(new SmartShot(Player));
             return true;
         }

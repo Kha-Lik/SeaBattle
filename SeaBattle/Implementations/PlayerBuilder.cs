@@ -1,4 +1,6 @@
-﻿namespace SeaBattle
+﻿using SeaBattle.Abstractions;
+
+namespace SeaBattle.Implementations
 {
     public class PlayerBuilder : IPlayerBuilder
     {

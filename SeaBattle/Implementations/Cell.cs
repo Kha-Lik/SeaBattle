@@ -1,16 +1,17 @@
 ﻿using System.Drawing;
+using SeaBattle.Enums;
 
-namespace SeaBattle
+namespace SeaBattle.Implementations
 {
     public class Cell
     {
-        public Point Coordinates { get; set; }
-        public CellState State { get; set; }
-
         public Cell(Point point)
         {
             Coordinates = point;
             State = CellState.Empty;
         }
+
+        public Point Coordinates { get; set; }
+        public CellState State { get; set; }
     }
 }
