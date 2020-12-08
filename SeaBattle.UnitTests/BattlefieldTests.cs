@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using FluentAssertions;
 using NUnit.Framework;
 
@@ -51,5 +52,16 @@ namespace SeaBattle.UnitTests
 
             _battlefield.GetNeighbours(cell).Count.Should().Be(8);
         }
+
+        [Test]
+        [TestCase(-1, -1)]
+        [TestCase(10, 10)]
+        public void Indexer_IndexOutOfRange_ShouldThrowException(int x, int y) =>
+            _battlefield.Invoking(b => b[new() {X = x, Y = y}]).Should().Throw<IndexOutOfRangeException>();
+
+
+        [Test]
+        public void Indexer_WhenCalled_ReturnCell()
+            => _battlefield[new() {X = 1, Y = 1}].Coordinates.Should().Equals(new Point() {X = 1, Y = 1});
     }
 }
