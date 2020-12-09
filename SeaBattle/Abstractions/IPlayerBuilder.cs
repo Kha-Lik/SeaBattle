@@ -2,6 +2,6 @@
 {
     public interface IPlayerBuilder
     {
-        IPlayer ConstructPlayer();
+        IPlayer ConstructPlayer(string name);
     }
 }

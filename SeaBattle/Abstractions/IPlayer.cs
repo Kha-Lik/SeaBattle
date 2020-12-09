@@ -7,6 +7,7 @@ namespace SeaBattle.Abstractions
         public IBattlefield Battlefield { get; set; }
         public AutoShotMethod AutoShotMethod { get; set; }
         public bool IsMyTurn { get; set; }
+        public string Name { get; set; }
 
         public bool AutoShot(IBattlefield battlefield);
         bool ManualShot(Point target, IBattlefield battlefield);

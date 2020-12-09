@@ -11,7 +11,7 @@ namespace SeaBattle.Implementations
             _battlefieldBuilder = battlefieldBuilder;
         }
 
-        public IPlayer ConstructPlayer()
+        public IPlayer ConstructPlayer(string name)
         {
             Player player = new();
             player.Battlefield = ConstructBattlefield();

@@ -23,7 +23,7 @@ namespace SeaBattle.UnitTests
             });
             PlayerBuilder playerBuilder = new(builder);
             
-            _player = playerBuilder.ConstructPlayer();
+            _player = playerBuilder.ConstructPlayer("Test");
             builder.BuildBattlefield();
             builder.PlaceShips();
             _battlefield = builder.GetResult();

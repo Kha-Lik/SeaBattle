@@ -8,10 +8,10 @@ namespace SeaBattle.Implementations
         private readonly IPlayer _playerOne;
         private readonly IPlayer _playerTwo;
 
-        public Game(IPlayerBuilder playerBuilder)
+        public Game(IPlayerBuilder playerBuilder, GameSettings settings)
         {
-            _playerOne = playerBuilder.ConstructPlayer();
-            _playerTwo = playerBuilder.ConstructPlayer();
+            _playerOne = playerBuilder.ConstructPlayer(settings.FirstPlayerName);
+            _playerTwo = playerBuilder.ConstructPlayer(settings.SecondPlayerName);
         }
 
         public IBattlefield GetPlayerOneField()
