@@ -11,12 +11,12 @@ namespace SeaBattle.Implementations
 
         public override bool Shoot(IBattlefield battlefield)
         {
-            var target = GetRandomCell(battlefield);
+            var target = battlefield.GetRandomCell();
 
             while (!IsCellSuitable(target))
-                target = GetRandomCell(battlefield);
+                target = battlefield.GetRandomCell();
 
-            target.State = target.State | CellState.WasFired; //add WasFired flag to cell state
+            target.State = target.State | CellState.WasFired; //adds WasFired flag to cell state
 
             if (!target.State.HasFlag(CellState.Ship)) return false;
 
@@ -36,12 +36,6 @@ namespace SeaBattle.Implementations
         private bool IsCellSuitable(Cell cell)
         {
             return !cell.State.HasFlag(CellState.WasFired);
-        }
-
-        private Cell GetRandomCell(IBattlefield battlefield)
-        {
-            var random = RandomHelper.GetHelper();
-            return battlefield[random.GetRandomPoint(Player.Battlefield.Size)];
         }
     }
 }

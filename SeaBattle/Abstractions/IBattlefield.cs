@@ -12,5 +12,6 @@ namespace SeaBattle.Abstractions
         Cell this[Point point] { get; set; }
         bool IsPointInField(Point point);
         ICollection<Cell> GetNeighbours(Cell cell);
+        Cell GetRandomCell();
     }
 }

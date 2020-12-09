@@ -50,6 +50,12 @@ namespace SeaBattle.Implementations
             return neighs;
         }
 
+        public Cell GetRandomCell()
+        {
+            var random = RandomHelper.GetHelper();
+            return this[random.GetRandomPoint(Size)];
+        }
+
         public IEnumerator GetEnumerator()
         {
             return _field.GetEnumerator();
