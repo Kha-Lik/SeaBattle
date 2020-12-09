@@ -69,15 +69,14 @@ namespace SeaBattle.Implementations
                 var pointRange = GetPointRange(randomCell.Coordinates, shipSize, isVertical);
                 //if some points are outside of the field,
                 //get new start point, new random direction and skip iteration
-                if (!pointRange.All(p => _battlefield.IsPointInField(p)))
+                if (pointRange.All(p => _battlefield.IsPointInField(p)))
                 {
-                    randomCell = random.GetRandomCell(emptyCells);
-                    isVertical = random.GetRandomBool();
-                    continue;
+                    range.Clear();
+                    range.AddRange(pointRange.Select(point => _battlefield[point]));
+                    
                 }
-
-                range.Clear();
-                range.AddRange(pointRange.Select(point => _battlefield[point]));
+                randomCell = random.GetRandomCell(emptyCells);
+                isVertical = random.GetRandomBool();
             } while (!IsRangeOfCellSuitable(range, emptyCells));
 
             foreach (var cell in range)
