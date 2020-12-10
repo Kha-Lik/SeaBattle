@@ -106,7 +106,7 @@ namespace SeaBattle.Implementations
 
         private bool IsRangeOfCellSuitable(ICollection<Cell> range, IEnumerable<Cell> emptyCells)
         {
-            return range.All(emptyCells.Contains);
+            return range.Count >0 && range.All(emptyCells.Contains);
         }
 
         private ICollection<Point> GetPointRange(Point startPoint, int size, bool isVertical)

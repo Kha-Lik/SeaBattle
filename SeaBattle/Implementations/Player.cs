@@ -34,6 +34,7 @@ namespace SeaBattle.Implementations
                 c.State.HasFlag(CellState.WasFired))
                 ? ShipState.Destroyed
                 : ShipState.Damaged;
+            if (ship.State == ShipState.Damaged) AutoShotMethod = new RandomNearShot(this);
             return true;
         }
     }

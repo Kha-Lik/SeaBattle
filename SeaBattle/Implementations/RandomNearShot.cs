@@ -36,7 +36,9 @@ namespace SeaBattle.Implementations
 
         private Cell GetRandomCell(Cell damaged, IBattlefield battlefield)
         {
-            var cells = battlefield.GetNeighbours(damaged).Where(c => !c.State.HasFlag(CellState.WasFired)).ToList();
+            var cells = battlefield.GetNeighbours(damaged).Where(c => !c.State.HasFlag(CellState.WasFired) 
+                                                                      && (c.Coordinates.X.Equals(damaged.Coordinates.X ) 
+                                                                          || c.Coordinates.Y.Equals(damaged.Coordinates.Y ))).ToList();
             return RandomHelper.GetHelper().GetRandomCell(cells);
         }
     }

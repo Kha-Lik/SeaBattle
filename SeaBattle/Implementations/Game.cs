@@ -12,6 +12,7 @@ namespace SeaBattle.Implementations
         {
             _playerOne = playerBuilder.ConstructPlayer(settings.FirstPlayerName);
             _playerTwo = playerBuilder.ConstructPlayer(settings.SecondPlayerName);
+            _playerOne.IsMyTurn = true;
         }
 
         public IBattlefield GetPlayerOneField()
